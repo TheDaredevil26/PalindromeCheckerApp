@@ -1,53 +1,27 @@
-import java.util.LinkedList;
-import java.util.List;
-
-/**
-
- * MAIN CLASS - UseCase8PalindromeCheckerApp
- * Use Case 8: Linked List Based Palindrome Checker
-
- * Description:
- * This class checks whether a string is a palindrome
- * using a LinkedList.
-
- * Characters are added to the list and then compared by removing elements from both ends:
-
- * - removeFirst()
- * - removeLast()
-
- * This demonstrates how LinkedList supports double-ended operations for symmetric validation.
- * * @author Developer
- * @version 8.0
- */
 public class PalindromeCheckerApp {
-
-    /**
-     * Application entry point for UC8.
-     *
-     * @param args Command-line arguments
-     */
     public static void main(String[] args) {
         String input = "Level";
 
-        input = input.toLowerCase();
-        LinkedList<Character> list = new LinkedList<>();
-        for (char c : input.toCharArray()) {
-            list.add(c);
-        }
-        boolean isPalindrome = true;
+        input = input.replaceAll("\\s+", "").toLowerCase();
 
-        while (list.size() > 1) {
+        boolean result = check(input, 0, input.length() - 1);
 
-            char first = list.removeFirst();
-            char last = list.removeLast();
-
-            if (first != last) {
-                isPalindrome = false;
-                break;
-            }
+        if (result) {
+            System.out.println("The string is a Palindrome.");
+        } else {
+            System.out.println("The string is NOT a Palindrome.");
         }
 
-        System.out.println("Input: " + input);
-        System.out.println("is Palindrome? " + isPalindrome);
     }
+
+    private static boolean check(String s, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+        if (s.charAt(start) != s.charAt(end)) {
+            return false;
+        }
+        return check(s, start + 1, end - 1);
+    }
+
 }
